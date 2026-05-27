@@ -1,12 +1,83 @@
 ---
----
-<section class="section">
-  <div class="inner">
+import { Image } from 'astro:assets';
 
+import profile from '../../assets/images/profile.png';
+---
+<section class="section about">
+  <div class="inner">
+    <span class="profile-role">神降ろし鑑定歴15年以上</span>
+    <h2 class="about-title">神降ろし鑑定　江美香</h2>
+
+    <div class="profile-card">
+      <div class="profile-card-img">
+        <Image src={profile} alt="神降ろし鑑定　江美香" />
+      </div>
+      <div class="profile-card-body">
+        <p class="about-text">幼い頃より、人の感情や空気を敏感に感じ取っていました。</p>
+        <p class="about-text">女系の血筋に受け継がれた感覚通し、<br />神様から降ろされた言葉を、<br />そのままお伝えしています。</p>
+        <p class="about-text">恋愛、人間関係、仕事、人生の流れなど、</p>
+        <p class="about-text">目には見えない本質を読み解きながら、</p>
+        <p class="about-text">”今必要な言葉”を丁寧にお届けしています。</p>
+        <p class="about-text">不安を煽るのではなく、</p>
+        <p class="about-text">現実をどう生きていくかを大切にした鑑定を心掛けています。</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <style lang="scss">
   @use "../../styles/variables" as *;
   @use "../../styles/mixins" as *;
+
+  .profile-role {
+    display: block;
+    font-size: 0.9rem;
+    color: #8a7d4a;
+    margin-top: 4px;
+  }
+
+  .about-title {
+    text-align: center;
+    font-size: 2rem;
+
+    @include sp {
+      font-size: 1.5rem;
+    }
+  }
+
+  .profile-card {
+    display: flex;
+    align-items: center;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 40px;
+    gap: 40px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+
+    @include tb {
+      flex-direction: column;
+      padding: 0px;
+      gap: 28px;
+    }
+  }
+
+  .profile-card-img {
+    flex-shrink: 0;
+    width: 240px;
+    aspect-ratio: 3 / 4;
+
+    @include tb {
+      width: 200px;
+    }
+  }
+
+  .profile-card-body {
+    flex: 1;
+  }
+
+  .about-text {
+    @include sp {
+      font-size: 0.8rem;
+    }
+  }
 </style>
