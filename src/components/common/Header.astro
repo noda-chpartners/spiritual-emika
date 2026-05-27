@@ -1,12 +1,66 @@
 ---
+import { Image } from 'astro:assets';
+import Logo from '../../assets/images/logo.png';
 ---
 <header class="header">
-  <div class="inner">
-
+  <div class="header-inner">
+    <h1 class="logo">
+      <a href="/" class="logo-link">
+        <Image src={ Logo } alt="神降ろし鑑定江美香" />
+      </a>
+    </h1>
+    <nav class="navigation">
+      <ul class="list">
+        <li class="item"><a href="/" class="link">私について</a></li>
+        <li class="item"><a href="/" class="link">鑑定料金 / メニュー</a></li>
+        <li class="item"><a href="/" class="link">基本情報</a></li>
+        <li class="item"><a href="/" class="link contact-btn">お問い合わせ</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
 
 <style lang="scss">
   @use "../../styles/variables" as *;
   @use "../../styles/mixins" as *;
+
+  .header {
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1040px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .logo {
+    max-width: 150px;
+    height: 150px;
+  }
+
+  .navigation {
+    @include tb {
+      display: none;
+    }
+  }
+
+  .list {
+    display: flex;
+    gap: 30px;
+  }
+
+  .contact-btn {
+    max-width: 200px;
+    background-color: #e7d585;
+    border-radius: 50px;
+    padding: 10px 20px;
+    color: #fff;
+  }
 </style>

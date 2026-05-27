@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+
+import bgImage from '../../assets/images/bg-img.png';
+---
+<div class="background-container" aria-hidden="true">
+  <Image src={bgImage} alt="" loading="eager" class="background-image"/>
+</div>
+
+<style lang="scss">
+  @use "../../styles/variables" as *;
+  @use "../../styles/mixins" as *;
+
+  .background-container {
+    position: fixed;
+    z-index: -1;
+  }
+
+  .background-image {
+    object-fit: cover;
+    object-position: center;
+  }
+</style>

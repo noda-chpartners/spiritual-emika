@@ -1,9 +1,11 @@
 ---
 import { siteConfig } from '../config/site';
 
+
 import '../styles/reset.css';
 import '../styles/global.scss';
 
+import Background from '../components/common/Background.astro';
 import Header from '../components/common/Header.astro';
 import Footer from '../components/common/Footer.astro';
 
@@ -37,9 +39,14 @@ const {
     <meta name="twitter:title" content={title}/>
     <meta name="twitter:description" content={description} />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Yomogi&family=Yuji+Syuku&display=swap" rel="stylesheet">
+
     <script src="../scripts/animation.ts"></script>
 	</head>
 	<body>
+    <Background />
 		<Header />
     <main>
       <slot />
@@ -47,3 +54,14 @@ const {
     <Footer />
 	</body>
 </html>
+
+<style lang="scss">
+    @use "../styles/variables" as *;
+    @use "../styles/mixins" as *;
+
+    main {
+      position: relative;
+      z-index: 1;
+    }
+</style>
+
