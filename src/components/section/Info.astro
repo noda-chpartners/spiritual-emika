@@ -1,12 +1,169 @@
 ---
 ---
-<section class="section">
+<section class="section info">
   <div class="inner">
+    <h2 class="info-title">基本情報</h2>
 
+    <dl class="info-list">
+      <div class="info-row">
+        <dt class="info-term">店舗名</dt>
+        <dd class="info-desc">神降ろし鑑定エミカ</dd>
+      </div>
+      <div class="info-row">
+        <dt class="info-term">電話番号</dt>
+        <dd class="info-desc">
+          <a class="info-tel" href="tel:09017862822">090-1786-2822</a>
+        </dd>
+      </div>
+      <div class="info-row">
+        <dt class="info-term">住所</dt>
+        <dd class="info-desc">
+          〒470-0162&ensp;愛知県愛知郡東郷町和合知々釜167-1
+          <a
+            class="info-map-link"
+            href="https://maps.google.com/?q=愛知県愛知郡東郷町和合知々釜167-1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google マップで見る
+          </a>
+        </dd>
+      </div>
+      <div class="info-row">
+        <dt class="info-term">最寄り駅</dt>
+        <dd class="info-desc">
+          地下鉄赤池駅
+          <span class="info-badge">
+            送迎対応あり
+          </span>
+        </dd>
+      </div>
+      <div class="info-row">
+        <dt class="info-term">営業時間</dt>
+        <dd class="info-desc">
+          <span class="info-hours-row">
+            <span class="info-hours-label">平日・土日祝</span>
+            10:00 〜 20:00
+            </span>
+        </dd>
+      </div>
+      <div class="info-row">
+        <dt class="info-term">定休日</dt>
+        <dd class="info-desc">不定休
+          <span class="info-note">※ 詳細はお問い合わせにてご確認ください</span>
+        </dd>
+      </div>
+    </dl>
   </div>
 </section>
 
 <style lang="scss">
   @use "../../styles/variables" as *;
   @use "../../styles/mixins" as *;
+
+  .info-title {
+    text-align: center;
+    font-size: clamp(1.6rem, 5vw, 2rem);
+    color: #5c4d2a;
+  }
+
+  .info-list {
+    max-width: 680px;
+    margin: 58px auto 0;
+  }
+
+  .info-row {
+    display: grid;
+    grid-template-columns: 7em 1fr;
+    gap: 16px;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(160, 140, 80, 0.25);
+
+    &:first-child {
+      border-top: 1px solid rgba(160, 140, 80, 0.25);
+    }
+
+    @include sp {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+
+  .info-term {
+    font-size: 0.85rem;
+    color: #8a6d22;
+    letter-spacing: 0.08em;
+  }
+
+  .info-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    line-height: 1.8;
+  }
+
+  .info-tel {
+    font-size: 1.2rem;
+    color: #5c4d2a;
+    text-decoration: underline;
+    text-decoration-color: rgba(160, 140, 80, 0.5);
+    text-underline-offset: 4px;
+    width: fit-content;
+
+    &:hover {
+      color: #c9a84c;
+    }
+  }
+
+  .info-map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: #8a6d22;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    width: fit-content;
+
+    &::before {
+      content: '📍';
+      font-size: 0.9em;
+    }
+
+    &:hover {
+      color: #c9a84c;
+    }
+  }
+
+  .info-badge {
+    display: inline-block;
+    padding: 2px 12px;
+    font-size: 0.8rem;
+    color: #5c4d2a;
+    background-color: rgba(231, 213, 133, 0.3);
+    border: 1px solid rgba(160, 140, 80, 0.4);
+    border-radius: 50px;
+    width: fit-content;
+  }
+
+  .info-hours-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .info-hours-label {
+    font-size: 0.8rem;
+    color: #8a6d22;
+    padding: 1px 10px;
+    border: 1px solid rgba(160, 140, 80, 0.4);
+    border-radius: 4px;
+  }
+
+  .info-note {
+    font-size: 0.85rem;
+    color: #8a7d6b;
+  }
 </style>
