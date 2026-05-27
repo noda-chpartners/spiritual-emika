@@ -1,7 +1,6 @@
 ---
 import { siteConfig } from '../config/site';
 
-
 import '../styles/reset.css';
 import '../styles/global.scss';
 
@@ -9,41 +8,107 @@ import Background from '../components/common/Background.astro';
 import Header from '../components/common/Header.astro';
 import Footer from '../components/common/Footer.astro';
 
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+}
+
 const {
   title = siteConfig.title,
   description = siteConfig.description,
   lang = siteConfig.lang,
+  ogImage = siteConfig.ogImage,
+  ogType = 'website',
+  noindex = false,
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, siteConfig.url).href;
+const ogImageUrl = new URL(ogImage, siteConfig.url).href;
+const keywords = siteConfig.keywords.join(', ');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: siteConfig.business.name,
+  description: siteConfig.description,
+  url: siteConfig.url,
+  telephone: siteConfig.business.phoneInternational,
+  image: ogImageUrl,
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: siteConfig.business.address.postalCode,
+    addressRegion: siteConfig.business.address.region,
+    addressLocality: siteConfig.business.address.locality,
+    streetAddress: siteConfig.business.address.street,
+    addressCountry: 'JP',
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ],
+      opens: '10:00',
+      closes: '20:00',
+    },
+  ],
+  founder: {
+    '@type': 'Person',
+    name: siteConfig.owner,
+  },
+  ...(siteConfig.sns.instagram && { sameAs: [siteConfig.sns.instagram, siteConfig.sns.line].filter(Boolean) }),
+};
 ---
 
 <html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+		<meta name="format-detection" content="telephone=no" />
 
-    <link rel="canonical" href={`${siteConfig.url}${Astro.url.pathname}`} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		<meta name="author" content={siteConfig.owner} />
+		<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+		<meta name="theme-color" content={siteConfig.themeColor} />
 
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
-    <meta property="og:url" content={`${siteConfig.url}${Astro.url.pathname}`} />
-    <meta property="og:type" content="website" />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content={siteConfig.sns.x} />
-    <meta name="twitter:title" content={title}/>
-    <meta name="twitter:description" content={description} />
+		<meta property="og:site_name" content={siteConfig.name} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content={ogType} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:alt" content={siteConfig.ogImageAlt} />
+		<meta property="og:locale" content={siteConfig.locale} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Yomogi&family=Yuji+Syuku&display=swap" rel="stylesheet">
+		<meta name="twitter:card" content={siteConfig.twitter.card} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+		<meta name="twitter:image:alt" content={siteConfig.ogImageAlt} />
+		{siteConfig.twitter.site && <meta name="twitter:site" content={siteConfig.twitter.site} />}
 
-    <script src="../scripts/animation.ts"></script>
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Yomogi&family=Yuji+Syuku&display=swap" rel="stylesheet" />
 	</head>
 	<body>
     <Background />
@@ -52,6 +117,9 @@ const {
       <slot />
     </main>
     <Footer />
+    <script>
+      import '../scripts/animation';
+    </script>
 	</body>
 </html>
 
@@ -64,4 +132,3 @@ const {
       z-index: 1;
     }
 </style>
-
