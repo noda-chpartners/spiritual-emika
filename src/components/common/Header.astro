@@ -17,8 +17,26 @@ import Logo from '../../assets/images/logo.png';
         <li class="item"><a href="#contact" class="link contact-btn">お問い合わせ</a></li>
       </ul>
     </nav>
+    <button class="burger" id="burger" aria-label="メニューを開く" aria-expanded="false">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <nav class="mobile-nav">
+    <ul class="mobile-list">
+      <li><a href="#about" class="mobile-link">私について</a></li>
+      <li><a href="#menu" class="mobile-link">鑑定料金 / メニュー</a></li>
+      <li><a href="#info" class="mobile-link">基本情報</a></li>
+      <li><a href="#contact" class="mobile-link contact-btn">お問い合わせ</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div class="overlay" id="overlay"></div>
 
 <style lang="scss">
   @use "../../styles/variables" as *;
@@ -27,7 +45,7 @@ import Logo from '../../assets/images/logo.png';
   .header {
     position: fixed;
     width: 100%;
-    z-index: 2;
+    z-index: 110;
   }
 
   .header-inner {
@@ -38,6 +56,10 @@ import Logo from '../../assets/images/logo.png';
     width: 100%;
     margin: 0 auto;
     padding: 0 40px;
+
+    @include sp {
+      padding: 0 20px;
+    }
   }
 
   .logo {
@@ -63,4 +85,156 @@ import Logo from '../../assets/images/logo.png';
     padding: 10px 20px;
     color: #fff;
   }
+
+  .burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    cursor: pointer;
+    z-index: 110;
+    position: relative;
+
+    @include tb {
+      display: flex;
+    }
+  }
+
+  .burger-line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #5c4d2a;
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  // × に変形
+  .burger.is-active {
+    .burger-line:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .burger-line:nth-child(2) { opacity: 0; }
+    .burger-line:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+  }
+
+  // ── モバイルメニュー ─────────────────────────────────
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(320px, 80vw);
+    height: 100dvh;
+    z-index: 105;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // 背景：サイトの雰囲気に合わせて半透明
+    background-color: rgba(250, 244, 228, 0.97);
+    border-left: 1px solid rgba(160, 140, 80, 0.3);
+
+    // 初期状態：右へ隠す
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.is-open {
+      transform: translateX(0);
+    }
+  }
+
+  .mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .mobile-link {
+    font-size: 1.1rem;
+    color: #5c4d2a;
+    letter-spacing: 0.08em;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1px;
+      background-color: #c9a84c;
+      transition: width 0.25s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+    // お問い合わせだけボタン風に
+    &.contact-btn {
+      display: inline-block;
+      background-color: #e7d585;
+      border-radius: 50px;
+      padding: 10px 28px;
+      color: #fff;
+
+      &::after { display: none; }
+    }
+  }
+
+  // ── オーバーレイ ─────────────────────────────────────
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 104;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+
+    &.is-show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
 </style>
+
+<script>
+  const burger     = document.getElementById('burger')!;
+  const mobileMenu = document.getElementById('mobileMenu')!;
+  const overlay    = document.getElementById('overlay')!;
+
+  function openMenu() {
+    mobileMenu.classList.add('is-open');
+    overlay.classList.add('is-show');
+    burger.classList.add('is-active');
+    burger.setAttribute('aria-expanded', 'true');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // 背面スクロール防止
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('is-open');
+    overlay.classList.remove('is-show');
+    burger.classList.remove('is-active');
+    burger.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', () => {
+    burger.classList.contains('is-active') ? closeMenu() : openMenu();
+  });
+
+  // オーバーレイクリックで閉じる
+  overlay.addEventListener('click', closeMenu);
+
+  // リンククリックで閉じる
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>
