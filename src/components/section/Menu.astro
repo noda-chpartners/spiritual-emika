@@ -1,12 +1,144 @@
 ---
----
-<section class="section">
-  <div class="inner">
 
+---
+<section class="section menu" id="menu">
+  <div class="inner menu-card">
+    <h2 class="menu-title">鑑定料金 / メニュー</h2>
+    <div class="menu-block">
+      <div class="menu-groups">
+        <div class="menu-group">
+          <h4 class="menu-group-title">個人鑑定（対面）</h4>
+          <dl class="price-list">
+            <div class="price-row"><dt>30分</dt><dd>10,000円</dd></div>
+            <div class="price-row"><dt>60分</dt><dd>20,000円</dd></div>
+            <div class="price-row"><dt>以降15分単位</dt><dd>5,000円</dd></div>
+          </dl>
+        </div>
+        <div class="menu-group">
+          <h4 class="menu-group-title">オンライン鑑定（LINEビデオ通話）</h4>
+          <dl class="price-list">
+            <div class="price-row"><dt>30分</dt><dd>8,000円</dd></div>
+            <div class="price-row"><dt>60分</dt><dd>16,000円</dd></div>
+            <div class="price-row"><dt>90分</dt><dd>20,000円</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="menu-block">
+      <h3 class="menu-block-title">法人・企業鑑定</h3>
+      <div class="menu-group">
+        <h4 class="menu-group-title">企業鑑定（法人様向け）</h4>
+        <p class="menu-desc">経営者様・企業様向けの継続サポートです。事業の流れ、人間関係、従業員様との関係性、今後の方向性など、経営に関するご相談を承っております。</p>
+        <dl class="price-list">
+          <div class="price-row"><dt>1ヶ月</dt><dd>100,000円（税込）</dd></div>
+        </dl>
+        <p class="menu-note-label">期間中は、下記すべてをご利用いただけます。</p>
+        <ul class="menu-features">
+          <li>対面鑑定</li>
+          <li>オンライン鑑定</li>
+          <li>LINE相談</li>
+          <li>メール相談</li>
+        </ul>
+      </div>
+    </div>
+  </div>
   </div>
 </section>
 
 <style lang="scss">
   @use "../../styles/variables" as *;
   @use "../../styles/mixins" as *;
+
+  .menu-card {
+    max-width: 820px;
+    background-image: url('../../assets//images/card-bg.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 30px;
+    padding: clamp(56px, 9vw, 96px) clamp(40px, 8vw, 80px);
+
+    @include sp {
+      padding: 48px 28px;
+    }
+  }
+
+  .menu-title {
+    text-align: center;
+    font-size: clamp(1.6rem, 5vw, 2rem);
+    color: #5c4d2a;
+  }
+
+  .menu-block {
+    margin-top: 50px;
+  }
+
+  .menu-block-title {
+    text-align: center;
+    font-size: 1.4rem;
+    color: #5c4d2a;
+    padding-bottom: 10px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid rgba(160, 140, 80, 0.5);
+  }
+
+  .menu-groups {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    @include tb {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+
+  .menu-group-title {
+    font-size: 1.1rem;
+    color: #6b5b2e;
+    margin-bottom: 12px;
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(160, 140, 80, 0.45);
+
+    dt {
+      font-weight: normal;
+    }
+
+    dd {
+      font-weight: bold;
+      color: #8a6d22;
+      white-space: nowrap;
+    }
+  }
+
+  .price-list {
+    margin-top: 20px;
+  }
+
+  .menu-note-label {
+    margin-top: 20px;
+    color: #6b5b2e;
+  }
+
+  .menu-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+
+    li {
+      padding: 4px 16px;
+      font-size: 0.9rem;
+      background-color: rgba(231, 213, 133, 0.35);
+      border: 1px solid rgba(160, 140, 80, 0.4);
+      border-radius: 50px;
+    }
+  }
 </style>
