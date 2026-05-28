@@ -12,7 +12,7 @@ export const siteConfig = {
   url: "https://example.com",
   /** OGP画像（public 配下。1200×630px 推奨） */
   ogImage: "/ogp.png",
-  ogImageAlt: "神降ろし鑑定エミカ 江美香",
+  ogImageAlt: "神降ろし鑑定 江美香",
   lang: "ja",
   locale: "ja_JP",
   /** SEOキーワード */
@@ -23,7 +23,6 @@ export const siteConfig = {
     "占い",
     "鑑定",
     "江美香",
-    "エミカ",
     "愛知",
     "東郷町",
     "愛知郡",
@@ -37,7 +36,7 @@ export const siteConfig = {
   themeColor: "#faf4e4",
   /** 店舗・連絡先情報（構造化データ・フッター等で利用） */
   business: {
-    name: "神降ろし鑑定エミカ",
+    name: "神降ろし鑑定江美香",
     phone: "090-1786-2822",
     phoneInternational: "+81-90-1786-2822",
     address: {
@@ -58,8 +57,8 @@ export const siteConfig = {
   },
   /** SNS（未設定の場合は空文字のまま） */
   sns: {
-    instagram: "https://www.instagram.com/アカウント名/",
-    line: "https://lin.ee/xxxxxxx",
+    instagram: "https://www.instagram.com/emika_kamioroshi?igsh=MWJkZ2JscmRwMXJ5Yw%3D%3D&utm_source=qr",
+    line: "https://lin.ee/RnlnYGy",
     /** X（Twitter）アカウントの @ハンドル（例: "@emika"）。未使用なら空文字 */
     x: "",
   },
