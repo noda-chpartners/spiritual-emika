@@ -65,6 +65,33 @@ function initAnimations() {
       });
     }
 
+    // ── Voice（お客様の声） ──────────────────────────────
+    const voiceSection = document.querySelector('.voice');
+    if (voiceSection) {
+      gsap.from('.voice-lead', {
+        scrollTrigger: {
+          trigger: voiceSection,
+          start: 'top 85%',
+        },
+        duration: 0.8,
+        y: 24,
+        autoAlpha: 0,
+        ease: 'power2.out',
+      });
+
+      gsap.from('.voice-carousel', {
+        scrollTrigger: {
+          trigger: voiceSection,
+          start: 'top 80%',
+        },
+        duration: 0.9,
+        y: 36,
+        autoAlpha: 0,
+        ease: 'power2.out',
+        delay: 0.1,
+      });
+    }
+
     // ── Menu ────────────────────────────────────────────
     const menuSection = document.querySelector('.menu');
     if (menuSection) {

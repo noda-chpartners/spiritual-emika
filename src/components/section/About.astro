@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { siteConfig } from '../../config/site';
 
 import profile from '../../assets/images/profile.png';
 ---
@@ -22,7 +23,10 @@ import profile from '../../assets/images/profile.png';
           <p class="about-text">不安を煽るのではなく、</p>
           <p class="about-text">現実をどう生きていくかを大切にした鑑定を心掛けています。</p>
         </div>
-        <a href="https://ameblo.jp/spiritual-emika/" class="blog-link">ブログを見る</a>
+        <div class="about-actions">
+          <a href={siteConfig.contact.formUrl} class="about-btn blog-link" target="_blank" rel="noopener noreferrer">鑑定を予約する</a>
+          <a href="https://ameblo.jp/spiritual-emika/" class="blog-link">ブログを見る</a>
+        </div>
       </div>
     </div>
   </div>
@@ -88,6 +92,18 @@ import profile from '../../assets/images/profile.png';
     }
   }
 
+  .about-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 32px;
+
+    @include tb {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
   .blog-link {
     display: block;
     text-align: center;
@@ -98,9 +114,33 @@ import profile from '../../assets/images/profile.png';
     background-color: #e7d585;
     border: 1px solid rgba(160, 140, 80, 0.4);
     color: #000;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(160, 140, 80, 0.18);
+    }
 
     @include tb {
-      margin: 30px auto;
+      margin: 30px auto 0;
+    }
+  }
+
+  .about-btn {
+    display: block;
+    text-align: center;
+    border-radius: 50px;
+    max-width: 200px;
+    margin-top: 30px;
+    padding: 20px 40px;
+    background-color: #e7d585;
+    border: 1px solid rgba(160, 140, 80, 0.4);
+    color: #000;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(160, 140, 80, 0.18);
     }
   }
 </style>
