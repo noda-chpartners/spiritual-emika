@@ -63,8 +63,13 @@ import Logo from '../../assets/images/logo.png';
   }
 
   .logo {
-    max-width: 200px;
-    height: 200px;
+    max-width: 150px;
+    height: 150px;
+
+    @include tb {
+      width: 200px;
+      height: 200px
+    }
   }
 
   .navigation {

@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+
+import room from '../../assets/images/room.png';
 ---
 <section class="section info" id="info">
   <div class="inner">
     <h2 class="info-title">基本情報</h2>
-
     <dl class="info-list">
       <div class="info-row">
         <dt class="info-term">店舗名</dt>
@@ -17,7 +19,7 @@
       </div>
       <div class="info-row">
         <dt class="info-term">住所</dt>
-        <dd class="info-desc">
+        <dd class="info-desc address">
           〒470-0162&ensp;愛知県愛知郡東郷町和合知々釜167-1
           <a
             class="info-map-link"
@@ -64,6 +66,7 @@
 <style lang="scss">
   @use "../../styles/variables" as *;
   @use "../../styles/mixins" as *;
+  
 
   .info-title {
     text-align: center;
@@ -72,8 +75,18 @@
   }
 
   .info-list {
+    background-image: url('../../assets//images/room.png');
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position-x: right -60px;
+    background-position-y: top 50px;
     max-width: 680px;
     margin: 58px auto 0;
+
+    @include sp {
+      background-potion-x: right 50px; 
+      background-position-y: top 10px;
+    }
   }
 
   .info-row {
@@ -121,6 +134,7 @@
   }
 
   .info-map-link {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 4px;
