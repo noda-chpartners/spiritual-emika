@@ -12,14 +12,17 @@ import profile from '../../assets/images/profile.png';
         <p class="profile-name">メッセンジャー江美香</p>
         <Image src={profile} alt="神降ろし鑑定　江美香" />
       </div>
-      <div class="profile-card-body">
-        <p class="about-text">幼い頃より、人の感情や空気を敏感に感じ取っていました。</p>
-        <p class="about-text">女系の血筋に受け継がれた感覚通し、<br />神様から降ろされた言葉を、<br />そのままお伝えしています。</p>
-        <p class="about-text">恋愛、人間関係、仕事、人生の流れなど、</p>
-        <p class="about-text">目には見えない本質を読み解きながら、</p>
-        <p class="about-text">”今必要な言葉”を丁寧にお届けしています。</p>
-        <p class="about-text">不安を煽るのではなく、</p>
-        <p class="about-text">現実をどう生きていくかを大切にした鑑定を心掛けています。</p>
+      <div class="card-body-wrap">
+        <div class="profile-card-body">
+          <p class="about-text">幼い頃より、人の感情や空気を敏感に感じ取っていました。</p>
+          <p class="about-text">女系の血筋に受け継がれた感覚通し、<br />神様から降ろされた言葉を、<br />そのままお伝えしています。</p>
+          <p class="about-text">恋愛、人間関係、仕事、人生の流れなど、</p>
+          <p class="about-text">目には見えない本質を読み解きながら、</p>
+          <p class="about-text">”今必要な言葉”を丁寧にお届けしています。</p>
+          <p class="about-text">不安を煽るのではなく、</p>
+          <p class="about-text">現実をどう生きていくかを大切にした鑑定を心掛けています。</p>
+        </div>
+        <a href="https://ameblo.jp/spiritual-emika/" class="blog-link">ブログを見る</a>
       </div>
     </div>
   </div>
@@ -82,6 +85,21 @@ import profile from '../../assets/images/profile.png';
   .about-text {
     @include sp {
       font-size: 0.8rem;
+    }
+  }
+
+  .blog-link {
+    display: block;
+    text-align: center;
+    border-radius: 50px;
+    max-width: 200px;
+    margin-top: 30px;
+    padding: 20px 40px;
+    background-color: #e7d585;
+    color: #fff;
+
+    @include tb {
+      margin: 30px auto;
     }
   }
 </style>
