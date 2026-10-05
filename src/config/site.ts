@@ -9,7 +9,7 @@ export const siteConfig = {
   description:
     "愛知県東郷町で神降ろし鑑定を行う江美香の公式サイト。恋愛・人間関係・仕事・人生の流れなど、神様から降ろされた言葉をそのままお伝えします。対面・オンライン鑑定、法人鑑定にも対応。",
   /** 本番URL（公開時に実際のドメインへ変更してください） */
-  url: "https://example.com",
+  url: "https://spiritual-emika.pages.dev",
   /** OGP画像（public 配下。1200×630px 推奨） */
   ogImage: "/ogp.png",
   ogImageAlt: "神降ろし鑑定 江美香",
