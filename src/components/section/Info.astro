@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { siteConfig } from '../../config/site';
 
 import room from '../../assets/images/room.png';
 ---
@@ -48,8 +49,8 @@ import room from '../../assets/images/room.png';
         <dt class="info-term">営業時間</dt>
         <dd class="info-desc">
           <span class="info-hours-row">
-            <span class="info-hours-label">平日・土日祝</span>
-            10:00 〜 20:00
+            <span class="info-hours-label">{siteConfig.business.openingHoursNote}</span>
+            {siteConfig.business.opens} 〜 {siteConfig.business.closes}
             </span>
         </dd>
       </div>

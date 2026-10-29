@@ -1,0 +1,136 @@
+---
+import { getImage } from 'astro:assets';
+import { siteConfig } from '../../config/site';
+import logo from '../../assets/images/logo.png';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  ogImage,
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const socialImage = await getImage({
+  src: logo,
+  width: 1200,
+  height: 1200,
+  fit: 'contain',
+  background: siteConfig.themeColor,
+  format: 'jpg',
+  quality: 90,
+});
+const favicon = await getImage({
+  src: logo,
+  width: 96,
+  height: 96,
+  fit: 'contain',
+  background: siteConfig.themeColor,
+  format: 'png',
+});
+const canonicalUrl = new URL(Astro.url.pathname, siteConfig.url).href;
+const imageUrl = new URL(ogImage ?? socialImage.src, siteConfig.url).href;
+const businessId = new URL('#business', siteConfig.url).href;
+const websiteId = new URL('#website', siteConfig.url).href;
+const imageId = `${canonicalUrl}#primaryimage`;
+const webpageId = `${canonicalUrl}#webpage`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'LocalBusiness',
+      '@id': businessId,
+      name: siteConfig.business.name,
+      alternateName: '神降ろし鑑定 江美香',
+      description: `${siteConfig.description} 営業時間は${siteConfig.business.opens}〜${siteConfig.business.closes}。${siteConfig.business.closedDays}`,
+      url: siteConfig.url,
+      telephone: siteConfig.business.phoneInternational,
+      image: { '@id': imageId },
+      logo: new URL(logo.src, siteConfig.url).href,
+      address: {
+        '@type': 'PostalAddress',
+        postalCode: siteConfig.business.address.postalCode,
+        addressRegion: siteConfig.business.address.region,
+        addressLocality: siteConfig.business.address.locality,
+        streetAddress: siteConfig.business.address.street,
+        addressCountry: 'JP',
+      },
+      openingHoursSpecification: [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: siteConfig.business.opens,
+        closes: siteConfig.business.closes,
+      }],
+      sameAs: [siteConfig.sns.instagram, siteConfig.sns.line].filter(Boolean),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      name: siteConfig.name,
+      url: siteConfig.url,
+      inLanguage: siteConfig.lang,
+      publisher: { '@id': businessId },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': webpageId,
+      name: title,
+      description,
+      url: canonicalUrl,
+      inLanguage: siteConfig.lang,
+      isPartOf: { '@id': websiteId },
+      about: { '@id': businessId },
+      primaryImageOfPage: { '@id': imageId },
+    },
+    {
+      '@type': 'ImageObject',
+      '@id': imageId,
+      url: imageUrl,
+      contentUrl: imageUrl,
+      caption: siteConfig.ogImageAlt,
+      ...(!ogImage && { width: 1200, height: 1200, encodingFormat: 'image/jpeg' }),
+    },
+  ],
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content={siteConfig.owner} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+<meta name="theme-color" content={siteConfig.themeColor} />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" type="image/png" sizes="96x96" href={favicon.src} />
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={siteConfig.ogImageAlt} />
+{!ogImage && <>
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:type" content="image/jpeg" />
+</>}
+<meta property="og:locale" content={siteConfig.locale} />
+
+<meta name="twitter:card" content={siteConfig.twitter.card} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={siteConfig.ogImageAlt} />
+{siteConfig.twitter.site && <meta name="twitter:site" content={siteConfig.twitter.site} />}
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />

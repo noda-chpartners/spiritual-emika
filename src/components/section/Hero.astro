@@ -1,5 +1,5 @@
 ---
-import { Picture, getImage } from 'astro:assets';
+import { getImage } from 'astro:assets';
 
 import pcHero from '../../assets/images/pc-hero.png';
 import tabHero from '../../assets/images/tab-hero.png';
@@ -11,11 +11,16 @@ const sp = await getImage({ src: spHero, format: 'webp' });
 ---
 <section class="hero">
     <picture class="hero-picture">
-      <source media="(max-width: 500px)" srcset={sp.src} />
-      <source media="(max-width: 768px)" srcset={tab.src} />
+      <source media="(max-width: 500px)" srcset={sp.src} type="image/webp" width={spHero.width} height={spHero.height} />
+      <source media="(max-width: 768px)" srcset={tab.src} type="image/webp" width={tabHero.width} height={tabHero.height} />
       <img
         src={pc.src}
         alt=""
+        width={pcHero.width}
+        height={pcHero.height}
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
       />
     </picture>
 </section>
